@@ -1,0 +1,33 @@
+{% url 'home' as home_url %}
+{% url 'login' as login_url %}
+{% url 'signup' as signup_url %}
+{% url 'logout' as logout_url %}
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+  <div class="container">
+  <a class="navbar-brand" href="{{home_url}}">{{brand_name}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+       <li class="nav-item {% if request.path == logout_url %} active {% endif %}">
+        <a class="nav-link" href="{{logout_url}}">logout</a>
+      </li>
+      {% else %}
+       <li class="nav-item {% if request.path == login_url %} active {% endif %}">
+        <a class="nav-link" href="{{login_url}}">login</a>
+      </li>
+      <li class="nav-item {% if request.path == signup_url %} active {% endif %}">
+        <a class="nav-link" href="{{signup_url}}">Signup</a>
+      </li>
+      {% endif %}
+    </ul>
+    {% comment %} {% include 'search/snippets/search-form.html' %} {% endcomment %}
+  </div>
+  </div>
+</nav>

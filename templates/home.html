@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block base_head %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="min-vh-100 w-100" id="home_bg">
+      <a href="{% url 'const:const' %}">
+        <div class="wrapper" id="top_left"></div>
+      </a>
+      <a href="{% url 'trans:trans' %}">
+        <div class="wrapper" id="top_center"></div>
+      </a>
+      <a href="{% url 'manufacturing:manufacturing' %}">
+        <div class="wrapper" id="top_right"></div>
+      </a>
+      <a href="{% url 'healthcare:health' %}">
+        <div class="wrapper" id="bottom_left"></div>
+      </a>
+      <a href="{% url 'marketing:marketing' %}">
+        <div class="wrapper" id="bottom_center"></div>
+      </a>
+      <a href="{% url 'info_tech:it' %}">
+        <div class="wrapper" id="bottom_right"></div>
+      </a>
+
+      <a href="/">
+        <div class="wrapper" id="home_lobby"></div>
+      </a>
+      <a href="#">
+        <div class="wrapper" id="home_favourites"></div>
+      </a>
+      <a href="#">
+        <div class="wrapper" id="home_transcripts"></div>
+      </a>
+      <a href="#">
+        <div class="wrapper" id="home_map"></div>
+      </a>
+      <a href="#">
+        <div class="wrapper" id="home_search"></div>
+      </a>
+      <a href="#" data-toggle="modal" data-target="#profile_modal">
+        <div class="wrapper" id="home_profile"></div>
+      </a>
+      <a href="#" class="" data-toggle="modal" data-target="#whoshere_modal">
+        <div class="wrapper" id="home_who"></div>
+      </a>
+      <a href="#">
+        <div class="wrapper" id="home_forum"></div>
+      </a>
+      <a href="#">
+        <div class="wrapper" id="home_help"></div>
+      </a>
+      <a href="{% url 'logout' %}">
+        <div class="wrapper" id="home_logout"></div>
+      </a>
+    </div>
+    {% include 'training_center/snippets/who.html' %}
+    {% include 'training_center/snippets/profile.html' %}
+
+{% endblock content %}

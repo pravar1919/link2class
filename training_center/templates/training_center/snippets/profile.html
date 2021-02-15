@@ -1,0 +1,93 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+<div class="modal fade" id="profile_modal" tabindex="-1" role="dialog" aria-labelledby="profile_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-white py-1 px-2">
+            <h5 class="modal-title" id="profile_modal_title"><span class="fa fa-user-circle-o text-secondary"></span> USER PROFILE</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-white px-3 py-3" style="min-height: 35vh;">
+            <div class="row mx-0 mb-3">
+              <div class="col-9">
+                <h4 class="mb-2">{{request.user|title}}</h4>
+                <p class="mb-0">Title: {{request.user.title}}</p>
+                <p>Organization/Affiliation: {{request.user.organization}}</p>
+              </div>
+              <div class="col-3">
+                <img src="{{request.user.profile.image.url}}" alt="" class="w-100 img-fluid">
+              </div>
+            </div>
+            <div class="row mx-0">
+              <div class="col-12 text-center">
+                <button role="button" data-dismiss="modal" data-toggle="modal" data-target="#edit_modal" class="btn mr-3" id="edit_info"><span class="fa fa-pencil"></span> EDIT INFORMATION</button>
+                <button role="button" data-dismiss="modal" data-toggle="modal" data-target="#edit_modal" class="btn mr-3" id="change_password"><span class="fa fa-lock"></span> CHANGE PASSWORD</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Edit Modal -->
+
+    <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-white py-1 px-2">
+            <h5 class="modal-title" id="profile_modal_title"><span class="fa fa-user-circle-o text-secondary"></span> USER PROFILE</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-0" style="min-height: 60vh; background-color: #f5f5f5;">
+            <div style="background-color: black; border: 1p solid white;">
+              <ul class="nav nav-pills mb-0" id="agenda_pills" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-info-tab" data-toggle="pill" href="#info_content" role="tab" aria-controls="info_content" aria-selected="true">ACCOUNT INFO</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-password-tab" data-toggle="pill" href="#password_content" role="tab" aria-controls="password_content" aria-selected="false">PASSWORD</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tab-content" id="agenda_content">
+                <div class="tab-pane p-4 fade show active" id="info_content" role="tabpanel" aria-labelledby="pills-info-tab">
+                    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-7">
+                            {{ p_form|crispy }}
+                            <button class="btn btn-outline-info" type="submit">Update</button>
+                            <div class="mt-5">
+                              <p>Date Enrolled: <span class="float-right">{{request.user.date_joined}}</span></p>
+                              <p>Last Login: <span class="float-right">{{request.user.last_login}}</span></p>
+                            </div>
+                        </div>
+                        <div class="col-5 text-center">
+                            <img src="{{request.user.profile.image.url}}" alt="" class="w-75 img-fluid mb-3">
+                            <p>Email: {{request.user.email}}</p>
+                            {% comment %} <button class="btn mx-1 text-info mb-4"><i class="fa fa-upload"></i> UPDATE PICTURE</button>
+                            <button class="btn mx-1 text-danger mb-4"><i class="fa fa-trash"></i> REMOVE PICTURE</button> {% endcomment %}
+                            <div class="form-check text-left mx-5">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <h6>I give my permission to publish my picture</h6>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+              <div class="tab-pane p-5 fade" id="password_content" role="tabpanel" aria-labelledby="pills-password-tab">
+                  <form method='POST'>{% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-lg text-primary">SAVE</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

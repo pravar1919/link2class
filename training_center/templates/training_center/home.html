@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<body class="min-vh-100 vw-100" style="
+    background-image: url({% static '/img/lobby_v2_1_20150714-022116519.jpg' %}); 
+    background-size: 100% 100%;">
+    <a href="#" data-toggle="modal" data-target="#agenda_modal" id="today_link">
+      <div id="lobby_today" class="wrapper"></div>
+    </a>
+    <a href="#" data-toggle="modal" data-target="#agenda_modal" id="upcoming_link">
+      <div id="lobby_upcoming" class="wrapper"></div>
+    </a>
+    <a href="#" data-toggle="modal" data-target="#agenda_modal" id="demand_link">
+      <div id="lobby_demand" class="wrapper"></div>
+    </a>
+
+    <a href="/" class="">
+      <div id="lobby_lobby" class="wrapper"></div>
+    </a>
+    <a href="#" class="" data-toggle="modal" data-target="#whoshere_modal">
+      <div id="lobby_who" class="wrapper"></div>
+    </a>
+    <a href="#" id='profile-link' onclick="modal();" class="" data-toggle="modal" data-target="#profile_modal">
+      <div id="lobby_profile" class="wrapper"></div>
+    </a>
+    <a href="#" class="">
+      <div id="lobby_help" class="wrapper"></div>
+    </a>
+    <a href="{% url 'logout' %}" class="">
+      <div id="lobby_signout" class="wrapper"></div>
+    </a>
+
+    <!-- Agenda Modal -->
+    {% include 'training_center/snippets/agenda.html' %}
+
+    <!-- Who Modal -->
+    {% include 'training_center/snippets/who.html' %}
+
+    <!-- Profile Modal -->
+    {% include 'training_center/snippets/profile.html' with form=form %}
+
+    
+
+
+{% comment %} <h1 class='text-center'>Construction</h1>
+<div class="container">
+{% for i in qs.videos_set.all %}
+    <p>{{i.title}}</p>
+    <p>{{i.author}}<p>
+    <iframe src=" {{i.url}}" title="Videos"></iframe>
+    <p>{{i.description}}</p>
+    <p>{{i.views}}</p>
+{% endfor %}
+</div> {% endcomment %}
+{% block script %}
+<script src="{% static '/js/main.js' %}"></script>
+
+{% endblock script%}
+{% endblock content %}

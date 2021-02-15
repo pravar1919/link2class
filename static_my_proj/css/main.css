@@ -1,0 +1,272 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.btn:focus,
+a:focus,
+input:focus {
+  outline: none !important;
+}
+#home_bg {
+  background-image: url(../img/Training_Center-2_hi_res.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
+.wrapper {
+  position: absolute;
+  background-color: transparent;
+}
+#top_left {
+  top: 11%;
+  left: 14%;
+  width: 19%;
+  height: 27%;
+  clip-path: polygon(0 0, 98% 25%, 98% 100%, 0 90%);
+}
+#top_center {
+  top: 18%;
+  left: 41%;
+  width: 18%;
+  height: 20%;
+}
+#top_right {
+  top: 11%;
+  right: 14%;
+  width: 19%;
+  height: 27%;
+  clip-path: polygon(0 25%, 100% 0, 100% 93%, 0 100%);
+}
+#bottom_left {
+  top: 42%;
+  left: 15%;
+  width: 18%;
+  height: 24%;
+}
+#bottom_center {
+  top: 42%;
+  left: 41%;
+  width: 18%;
+  height: 24%;
+}
+#bottom_right {
+  top: 42%;
+  right: 16%;
+  width: 17%;
+  height: 24%;
+}
+#home_lobby {
+  bottom: 1%;
+  left: 26%;
+  width: 3%;
+  height: 7%;
+}
+#home_favourites {
+  bottom: 1%;
+  left: 30%;
+  width: 5%;
+  height: 7%;
+}
+#home_transcripts {
+  bottom: 1%;
+  left: 36%;
+  width: 5%;
+  height: 7%;
+}
+#home_map {
+  bottom: 0%;
+  left: 45%;
+  width: 2%;
+  height: 6%;
+}
+#home_search {
+  bottom: 2%;
+  left: 48%;
+  width: 3%;
+  height: 6%;
+}
+#home_profile {
+  bottom: 0%;
+  left: 52%;
+  width: 3%;
+  height: 6%;
+}
+#home_logout {
+  bottom: 1%;
+  right: 22%;
+  width: 3%;
+  height: 7%;
+}
+#home_help {
+  bottom: 1%;
+  right: 26%;
+  width: 3%;
+  height: 7%;
+}
+#home_forum {
+  bottom: 1%;
+  right: 31%;
+  width: 4%;
+  height: 7%;
+}
+#home_who {
+  bottom: 1%;
+  right: 36%;
+  width: 5%;
+  height: 7%;
+}
+
+#lobby_today{
+  left: 34.5%;
+  top: 31%;
+  width: 10%;
+  height: 8%;
+}
+#lobby_upcoming{
+  left: 45%;
+  top: 31%;
+  width: 10%;
+  height: 8%;
+}
+#lobby_demand{
+  left: 55%;
+  top: 31%;
+  width: 10%;
+  height: 8%;
+}
+#lobby_today{
+  left: 34.5%;
+  top: 31%;
+  width: 10%;
+  height: 8%;
+}
+.modal-content{
+  background-color: #333;
+  border-radius: 10px;
+}
+#agenda_pills .nav-item{
+  background-color: black;
+  border: 1px solid grey;
+  color: white;
+}
+#agenda_pills .nav-item .active{
+  background-color: black;
+  color: lightblue !important;
+}
+#agenda_pills .nav-link{
+  color: white;
+}
+#agenda_pills .nav-link:hover{
+  color: lightblue !important;
+}
+.video_row{
+  height: 10vh;
+  border-bottom: 1px solid grey;
+}
+.play_video{
+  font-size: 30px;
+}
+.video_title{
+  height: 40px;
+  overflow: hidden;
+}
+.video_links{
+  color: black !important;
+  text-decoration: underline;
+}
+#lobby_lobby{
+  width: 3%;
+  left: 37%;
+  bottom: 1%;
+  height: 6%;
+}
+#lobby_signout{
+  width: 4%;
+  right: 37%;
+  bottom: 1%;
+  height: 6%;
+}
+#lobby_who{
+  width: 4%;
+  left: 44%;
+  bottom: 1%;
+  height: 5%;
+}
+#lobby_profile{
+  width: 4%;
+  left: 48%;
+  bottom: 4%;
+  height: 5%;
+}
+#lobby_help{
+  width: 3%;
+  right: 45%;
+  bottom: 1%;
+  height: 5%;
+}
+
+#login_mail{
+  position: absolute;
+  left: 33.5%;
+  top: 42%;
+  width: 11.2%;
+  height: 3.3%;
+  background-color: transparent;
+  -moz-box-shadow: inset -1px -1px 2px #CCC;
+  -webkit-box-shadow: inset -1px -1px 2px #CCC;
+  box-shadow: inset -1px -1px 2px #CCC;
+  border-radius:5px;
+  border:none;
+  padding:3px;
+}
+#login_password{
+  position: absolute;
+  left: 45%;
+  top: 42%;
+  width: 9.5%;
+  height: 3.3%;
+  background-color: transparent;
+  -moz-box-shadow: inset -1px -1px 2px #CCC;
+  -webkit-box-shadow: inset -1px -1px 2px #CCC;
+  box-shadow: inset -1px -1px 2px #CCC;
+  border-radius:5px;
+  border:none;
+  padding:3px;
+}
+#login_btn{
+  position: absolute;
+  left: 54.6%;
+  top: 41.8%;
+  width: 2.5%;
+  height: 3.7%;
+  background-color: transparent;
+}
+#forgot_pass{
+  left: 45%;
+  top: 46%;
+  width: 9%;
+  height: 1%;
+}
+#create_account{
+  left: 57%;
+  top: 42%;
+  width: 9%;
+  height: 3%;
+}
+#login_help{
+  left: 66%;
+  top: 40%;
+  width: 2%;
+  height: 6%;
+}
+#video_box{
+  left: 44.5%;
+  top: 16%;
+  width: 37%;
+  height: 38%;
+}
+.not-visible{
+  display: none;
+}

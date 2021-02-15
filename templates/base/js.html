@@ -1,0 +1,82 @@
+{% load static %}
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Modals Starts -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+                $('#change_password').on('click', function () {
+                $('#edit_modal #pills-info-tab').removeClass('active');
+                $('#edit_modal #info_content').removeClass('active show');
+                $('#edit_modal #pills-password-tab').addClass('active');
+                $('#edit_modal #password_content').addClass('active show');
+                });
+
+                $('#edit_info').on('click', function () {
+                $('#edit_modal #pills-password-tab').removeClass('active');
+                $('#edit_modal #password_content').removeClass('active show');
+                $('#edit_modal #pills-info-tab').addClass('active');
+                $('#edit_modal #info_content').addClass('active show');
+                });
+
+                $('#today_link').on('click', function () {
+                $('#agenda_modal #pills-upcoming-tab').removeClass('active');
+                $('#agenda_modal #upcoming_content').removeClass('active show');
+                $('#agenda_modal #pills-schedule-tab').removeClass('active');
+                $('#agenda_modal #schedule_content').removeClass('active show');
+                $('#agenda_modal #pills-demand-tab').removeClass('active');
+                $('#agenda_modal #demand_content').removeClass('active show');
+                $('#agenda_modal #pills-today-tab').addClass('active');
+                $('#agenda_modal #today_content').addClass('active show');
+                });
+
+                $('#upcoming_link').on('click', function () {
+                $('#agenda_modal #pills-today-tab').removeClass('active');
+                $('#agenda_modal #today_content').removeClass('active show');
+                $('#agenda_modal #pills-schedule-tab').removeClass('active');
+                $('#agenda_modal #schedule_content').removeClass('active show');
+                $('#agenda_modal #pills-demand-tab').removeClass('active');
+                $('#agenda_modal #demand_content').removeClass('active show');
+                $('#agenda_modal #pills-upcoming-tab').addClass('active');
+                $('#agenda_modal #upcoming_content').addClass('active show');
+                });
+
+                $('#demand_link').on('click', function () {
+                $('#agenda_modal #pills-today-tab').removeClass('active');
+                $('#agenda_modal #today_content').removeClass('active show');
+                $('#agenda_modal #pills-schedule-tab').removeClass('active');
+                $('#agenda_modal #schedule_content').removeClass('active show');
+                $('#agenda_modal #pills-upcoming-tab').removeClass('active');
+                $('#agenda_modal #upcoming_content').removeClass('active show');
+                $('#agenda_modal #pills-demand-tab').addClass('active');
+                $('#agenda_modal #demand_content').addClass('active show');
+                });        
+            });
+    </script>
+<!-- Modals Ends -->
+
+
+<!-- Login form Ajax Starts -->
+    <script type="text/javascript">
+        $("#login-form").submit(function (e) {
+            e.preventDefault();
+            var serializedData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'accounts:login' %}",
+                data: serializedData,
+                success: function (response) {
+                    window.location.href= "/";
+                },
+                error: function (response) {
+                    // alert the error if any error occured
+                    alert("Email or password is wrong");
+                }
+            })
+        });
+    </script>
+<!-- Login form Ajax Ends -->

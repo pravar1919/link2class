@@ -1,0 +1,91 @@
+{% load static %}
+
+<div class="modal fade" id="whoshere_modal" tabindex="-1" role="dialog" aria-labelledby="whoshere_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-white py-1 px-2">
+            <h5 class="modal-title" id="whoshere_modal_title"><span class="fa fa-search text-secondary"></span> WHO'S HERE</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-0" style="min-height: 60vh; background-color: #eee;">
+            <div style="background-color: black; border: 1p solid white;">
+              <button class="btn text-white">ALL</button>
+              <button class="btn text-white">A</button>
+              <button class="btn text-white">B</button>
+              <button class="btn text-white">C</button>
+              <button class="btn text-white">D</button>
+              <button class="btn text-white">E</button>
+              <button class="btn text-white">F</button>
+              <button class="btn text-white">G</button>
+              <button class="btn text-white">H</button>
+              <button class="btn text-white">I</button>
+              <button class="btn text-white">J</button>
+              <button class="btn text-white">K</button>
+              <button class="btn text-white">L</button>
+              <button class="btn text-white">M</button>
+              <button class="btn text-white">N</button>
+              <button class="btn text-white">O</button>
+              <button class="btn text-white">P</button>
+              <button class="btn text-white">Q</button>
+              <button class="btn text-white">R</button>
+              <button class="btn text-white">S</button>
+              <button class="btn text-white">T</button>
+              <button class="btn text-white">U</button>
+              <button class="btn text-white">V</button>
+              <button class="btn text-white">W</button>
+              <button class="btn text-white">X</button>
+              <button class="btn text-white">Y</button>
+              <button class="btn text-white">Z</button>
+            </div>
+            <div style="background-color: white;" class="row mx-0 p-1">
+              <div class="col-3">
+                <p class="mb-0">
+                  <b>Display Name</b>
+                </p>
+              </div>
+              <div class="col-4">
+                <p class="mb-0">
+                  <b>Title</b>
+                </p>
+              </div>
+              <div class="col-5">
+                <p class="mb-0">
+                  <b>Currently In</b>
+                </p>
+              </div>
+            </div>
+            {% for user in request.online_now %}
+            <div class="row mx-0 py-1" style="background-color: lightgray;">
+              {% comment %} <table>
+                <tr><th>Last Seen</th><td>{% if request.user.profile.last_seen %}{{ request.user.profile.last_seen|timesince }}{% else %}awhile{% endif %} ago</td></tr>
+                <tr><th class="text-success">Online</th><td>{{ request.user.profile.online }}</td></tr>
+              </table> {% endcomment %}
+              
+              <div class="col-3">
+                <p class="mb-0">{{user.first_name|title}} {{user.last_name|title}}</p>
+              </div>
+              <div class="col-4">
+                <p class="mb-0">{{user.title|title}}</p>
+              </div>
+              <div class="col-4">
+                <p class="mb-0">{{user.profile.state|title}}</p>
+              </div>
+              <div class="col-1 text-right">
+                <button class="btn py-0" data-toggle="tooltip" data-placement="bottom" title="View User Profile">
+                  <span class="fa fa-user-circle-o"></span>
+                </button>
+              </div>
+              
+                
+            </div>
+              {% endfor %}
+              {{logged_users}}
+              {{ request.online_now }}<br/>
+              {{ request.online_now_ids }}<br/>
+              {{ request.online_now.count }}<br/>
+          </div>
+        </div>
+      </div>
+    </div>
