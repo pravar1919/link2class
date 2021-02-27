@@ -76,6 +76,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.first_name
 
+    def get_all_logged_in_users(self):
+        user = (x for x in CustomUser.objects.all())
+        return user
+
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -109,15 +113,6 @@ class Profile(models.Model):
 
 
 
-    # def get_all_logged_in_users(self):
-    #     sessions = Session.objects.filter(expire_date__gte=timezone.now())
-    #     uid_list = []
-
-    #     for session in sessions:
-    #         data = session.get_decoded()
-    #         uid_list.append(data.get('_auth_user_id', None))
-
-    #     return CustomUser.objects.filter(id__in=uid_list)
 
 
 

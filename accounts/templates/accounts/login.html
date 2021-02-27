@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <div class="vw-100 vh-100" style="background-image: url({% static '/img/Main_login_screen.png' %}); background-size: 100% 100%;">
     <form method="POST" class="mb-3" id="login-form">{% csrf_token %}
         {{form.as_p}}
@@ -10,18 +11,14 @@
     <a href="{% url 'password_reset' %}">
       <div class="wrapper" id="forgot_pass"></div>
     </a>
-    <a href="#" class="" data-toggle="modal" data-target="#signup_modal">
+    <a href="{% url 'accounts:signup' %}" class="">
         <div class="wrapper" id="create_account"></div>
     </a>
-    {% comment %} <a href="#">
-      <div class="wrapper" id="create_account"></div>
-    </a> {% endcomment %}
     <a href="#">
       <div class="wrapper" id="login_help"></div>
     </a>
 </div>
-
-<div class="modal fade" id="signup_modal" tabindex="-1" role="dialog" aria-labelledby="signup_modal" aria-hidden="true" data-backdrop="static">
+<!-- <div class="modal fade" id="signup_modal" tabindex="-1" role="dialog" aria-labelledby="signup_modal" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header text-white py-1 px-2">
@@ -35,7 +32,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-6">
-                        <form method="POST" action="{% url 'accounts:signup' %}" class="mb-3">{% csrf_token %}
+                        <form method="POST" id="register-form" class="mb-3">{% csrf_token %}
                             {{form_r.as_p}}
                             <input type="submit" class='btn btn-success btn-block' />
                         </form>
@@ -46,6 +43,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 {% endblock content %}
 

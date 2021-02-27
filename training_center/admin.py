@@ -1,38 +1,37 @@
 from django.contrib import admin
-from .models import TrainingCenter
-from videos_app.models import Videos
-from training_center.construction.models import Construction
+from .models import SentMessage
+from training_center.benifits.models import Benifits
+from training_center.career.models import Career
 from training_center.healthcare.models import HealthCare
-from training_center.info_tech.models import InfoTech
-from training_center.manufacturing.models import Manufacturing
-from training_center.marketing.models import Marketing
-from training_center.transportation.models import Transportation
+from training_center.familysupport.models import FamilySupport
+from training_center.peer2peer.models import Peer2Peer
+from training_center.transition.models import Transition
 
 
-class VideoInline(admin.StackedInline):
-    model = Videos
-    
-class OutreachAndAdmissionAdmin(admin.ModelAdmin):
-    inlines = [VideoInline]
-
-class ConstructionAdmin(admin.ModelAdmin):
+class BenifitsAdmin(admin.ModelAdmin):
     readonly_fields=('extra_field',)
+
 class HealthCareAdmin(admin.ModelAdmin):
     readonly_fields=('extra_field',)
-class InfoTechAdmin(admin.ModelAdmin):
+
+class CareerAdmin(admin.ModelAdmin):
     readonly_fields=('extra_field',)
-class ManufacturingAdmin(admin.ModelAdmin):
+
+class FamilySupportAdmin(admin.ModelAdmin):
     readonly_fields=('extra_field',)
-class MarketingAdmin(admin.ModelAdmin):
+
+class Peer2PeerAdmin(admin.ModelAdmin):
     readonly_fields=('extra_field',)
-class TransportationAdmin(admin.ModelAdmin):
+
+class TransitionAdmin(admin.ModelAdmin):
     readonly_fields=('extra_field',)
 
 
 
-admin.site.register(Construction,ConstructionAdmin)
+admin.site.register(Benifits,BenifitsAdmin)
 admin.site.register(HealthCare,HealthCareAdmin)
-admin.site.register(InfoTech,InfoTechAdmin)
-admin.site.register(Manufacturing,ManufacturingAdmin)
-admin.site.register(Marketing,MarketingAdmin)
-admin.site.register(Transportation,TransportationAdmin)
+admin.site.register(Career,CareerAdmin)
+admin.site.register(FamilySupport,FamilySupportAdmin)
+admin.site.register(Peer2Peer,Peer2PeerAdmin)
+admin.site.register(Transition,TransitionAdmin)
+# admin.site.register(SentMessage)

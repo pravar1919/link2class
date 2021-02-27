@@ -1,5 +1,15 @@
 {% load static %}
 
+{% url 'manufacturing:like-post-view' as benifit_like %}
+{% url 'info_tech:like-post-view' as career_like %}
+{% url 'trans:like-post-view' as familysupport_like %}
+{% url 'healthcare:like-post-view' as healthcare_like %}
+{% url 'marketing:like-post-view' as marketing_like %}
+{% url 'const:like-post-view' as transition_like %}
+
+
+
+
 <div class="modal fade" id="agenda_modal" tabindex="-1" role="dialog" aria-labelledby="agenda_modal" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
@@ -47,20 +57,28 @@
             <div class="tab-content" id="agenda_content">
               <div class="tab-pane fade show active" id="today_content" role="tabpanel" aria-labelledby="pills-today-tab">
                 {% for qs in qs %}
-                {% if qs.todays_events %}
+                {% if qs.todays_events != None %}
                   <div class="row mx-0 video_row py-1">
                     <div class="col-1">
-                      <a id="today_events_link" href="/{{qs.extra_field}}/today/{{qs.id}}/" class="btn mt-2 mx-auto text-primary border-none"><span class="fa fa-play-circle-o play_video"></span></a>
+                      <button id="today_events_link" href="#" class="btn mt-2 mx-auto text-primary" data-toggle="modal" data-target="#today_events_modal{{forloop.counter}}"><span class="fa fa-play-circle-o play_video"></span></button>
                     </div>
                     <div class="col-4">
                       <h6 class="video_title mb-1">{{qs.title}}</h6>
-                      <p class="mb-0">
-                        <small>
-                          <a href="#" class="mr-3 video_links">View Details</a>
-                          <a href="#" class="mr-3 video_links">Downloads</a>
-                          <a href="#" class="video_links">Q & A</a>
-                        </small>
-                      </p>
+                      <div class="accordion" id="{{qs.id}}">
+                        <p class="mb-0">
+                          <small>
+                            <a type="button" data-toggle="collapse" href="#details_div_today{{forloop.counter}}" class="mr-3 video_links">View Details</a>
+                            <a href="#" class="mr-3 video_links">Downloads</a>
+                            <a href="#" class="video_links">Q & A</a>
+                          </small>
+                        </p>
+                        <div class="collapse mt-2" data-parent="#{{qs.id}}" id="details_div_today{{forloop.counter}}">
+                            <h6>Certificate: </h6>
+                            <p>{{qs.certificate}}</p>
+                            <h6>Details:</h6>
+                            <p>{{qs.description}}</p>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-2">
                       <small>
@@ -78,10 +96,41 @@
                       </p>
                     </div>
                     <div class="col-2">
-                      stars and heart
+                      <form action="{% if request.path == '/benifits/' %}{{benifit_like}}
+                         {% elif request.path == '/career/' %}{{career_like}}
+                         {% elif request.path == '/transition/' %}{{transition_like}}
+                         {% elif request.path == '/healthcare/' %}{{healthcare_like}}
+                         {% elif request.path == '/peer2peer/' %}{{peer2peer_like}}
+                         {% elif request.path == '/familysupport/' %}{{familysupport_like}}                         
+                         {% endif%}" 
+                         class='like-form' 
+                         method="POST" 
+                         id='{{qs.id}}'>
+                        		{% csrf_token %}
+                        		<input type="hidden" name="post_id" value={{qs.id}}>
+	                        	<span class="submit-span">
+	                            <button type="submit" class="ui button like-btn{{qs.id}}">
+	                                {% if profile not in qs.liked.all %}
+                                    Like
+	                                {% else %}
+										                Unlike
+	                                {% endif %}
+	                            </button>
+	                            <span>
+                            <div class="ui grid">
+                                <div class="column">
+                                  Likes: <div class="like-count{{qs.id}}">{{qs.num_likes}} </div>
+                                </div>
+                                {% comment %} <div class="column">
+                                    likes
+                                </div> {% endcomment %}
+                            </div>
+                          </form>
                     </div>
                   </div>
                 {% endif %}
+                {% empty %}
+                <p class="sorry_msg text-center mt-5">Sorry, no Videos Yet</p>
                 {% endfor %}
               </div>
             
@@ -92,17 +141,25 @@
                     {% if qs.upcoming_events %}
                       <div class="row mx-0 video_row py-1">
                         <div class="col-1">
-                          <a href="/{{qs.extra_field}}/upcoming/{{qs.id}}/" class="btn mt-2 mx-auto text-primary"><span class="fa fa-play-circle-o play_video"></span></a>
+                          <a href="#" class="btn mt-2 mx-auto text-primary" data-toggle="modal" data-target="#upcoming_events_modal{{forloop.counter}}"><span class="fa fa-play-circle-o play_video"></span></a>
                         </div>
                         <div class="col-4">
                           <h6 class="video_title mb-1">{{qs.title}}</h6>
-                          <p class="mb-0">
-                            <small>
-                              <a href="#" class="mr-3 video_links">View Details</a>
-                              <a href="#" class="mr-3 video_links">Downloads</a>
-                              <a href="#" class="video_links">Q & A</a>
-                            </small>
-                          </p>
+                      <div class="accordion" id="{{qs.id}}">
+                        <p class="mb-0">
+                          <small>
+                            <a type="button" data-toggle="collapse" href="#details_div_upcoming{{forloop.counter}}" class="mr-3 video_links">View Details</a>
+                            <a href="#" class="mr-3 video_links">Downloads</a>
+                            <a href="#" class="video_links">Q & A</a>
+                          </small>
+                        </p>
+                        <div class="collapse mt-2" data-parent="#{{qs.id}}" id="details_div_upcoming{{forloop.counter}}">
+                            <h6>Certificate: </h6>
+                            <p>{{qs.certificate}}</p>
+                            <h6>Details:</h6>
+                            <p>{{qs.description}}</p>
+                        </div>
+                      </div>
                         </div>
                         <div class="col-2">
                           <small>
@@ -120,10 +177,41 @@
                           </p>
                         </div>
                         <div class="col-2">
-                          stars and heart
+                         <form action="{% if request.path == '/benifits/' %}{{benifit_like}}
+                         {% elif request.path == '/career/' %}{{career_like}}
+                         {% elif request.path == '/transition/' %}{{transition_like}}
+                         {% elif request.path == '/healthcare/' %}{{healthcare_like}}
+                         {% elif request.path == '/peer2peer/' %}{{peer2peer_like}}
+                         {% elif request.path == '/familysupport/' %}{{familysupport_like}}                         
+                         {% endif%}" 
+                         class='like-form' 
+                         method="POST" 
+                         id='{{qs.id}}'>
+                        		{% csrf_token %}
+                        		<input type="hidden" name="post_id" value={{qs.id}}>
+	                        	<span class="submit-span">
+	                            <button type="submit" class="ui button like-btn{{qs.id}}">
+	                                {% if profile not in qs.liked.all %}
+                                    Like
+	                                {% else %}
+										                Unlike
+	                                {% endif %}
+	                            </button>
+	                            <span>
+                            <div class="ui grid">
+                                <div class="column">
+                                  Likes: <div class="like-count{{qs.id}}">{{qs.num_likes}} </div>
+                                </div>
+                                {% comment %} <div class="column">
+                                    likes
+                                </div> {% endcomment %}
+                            </div>
+                          </form>
                         </div>
                       </div>
                     {% endif %}
+                    {% empty %}
+                      <p class="sorry_msg text-center mt-5">Sorry, no Videos Yet</p>
                   {% endfor %}
               </div>
               <div class="tab-pane fade" id="demand_content" role="tabpanel" aria-labelledby="pills-demand-tab">
@@ -131,17 +219,25 @@
                 {% if qs.ondemand_events %}
                   <div class="row mx-0 video_row py-1">
                     <div class="col-1">
-                      <a href="/{{qs.extra_field}}/ondemand/{{qs.id}}/" class="btn mt-2 mx-auto text-primary"><span class="fa fa-play-circle-o play_video"></span></a>
+                      <a href="#" class="btn mt-2 mx-auto text-primary" data-toggle="modal" data-target="#ondemand_events_modal{{forloop.counter}}"><span class="fa fa-play-circle-o play_video"></span></a>
                     </div>
                     <div class="col-4">
                       <h6 class="video_title mb-1">{{qs.title}}</h6>
-                      <p class="mb-0">
-                        <small>
-                          <a href="#" class="mr-3 video_links">View Details</a>
-                          <a href="#" class="mr-3 video_links">Downloads</a>
-                          <a href="#" class="video_links">Q & A</a>
-                        </small>
-                      </p>
+                      <div class="accordion" id="{{qs.id}}">
+                        <p class="mb-0">
+                          <small>
+                            <a type="button" data-toggle="collapse" href="#details_div_demand{{forloop.counter}}" class="mr-3 video_links">View Details</a>
+                            <a href="#" class="mr-3 video_links">Downloads</a>
+                            <a href="#" class="video_links">Q & A</a>
+                          </small>
+                        </p>
+                        <div class="collapse mt-2" data-parent="#{{qs.id}}" id="details_div_demand{{forloop.counter}}">
+                            <h6>Certificate: </h6>
+                            <p>{{qs.certificate}}</p>
+                            <h6>Details:</h6>
+                            <p>{{qs.description}}</p>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-2">
                       <small>
@@ -159,10 +255,41 @@
                       </p>
                     </div>
                     <div class="col-2">
-                      stars and heart
+                      <form action="{% if request.path == '/benifits/' %}{{benifit_like}}
+                         {% elif request.path == '/career/' %}{{career_like}}
+                         {% elif request.path == '/transition/' %}{{transition_like}}
+                         {% elif request.path == '/healthcare/' %}{{healthcare_like}}
+                         {% elif request.path == '/peer2peer/' %}{{peer2peer_like}}
+                         {% elif request.path == '/familysupport/' %}{{familysupport_like}}                         
+                         {% endif%}" 
+                         class='like-form' 
+                         method="POST" 
+                         id='{{qs.id}}'>
+                        		{% csrf_token %}
+                        		<input type="hidden" name="post_id" value={{qs.id}}>
+	                        	<span class="submit-span">
+	                            <button type="submit" class="ui button like-btn{{qs.id}}">
+	                                {% if profile not in qs.liked.all %}
+                                    Like
+	                                {% else %}
+										                Unlike
+	                                {% endif %}
+	                            </button>
+	                            <span>
+                            <div class="ui grid">
+                                <div class="column">
+                                  Likes: <div class="like-count{{qs.id}}">{{qs.num_likes}} </div>
+                                </div>
+                                {% comment %} <div class="column">
+                                    likes
+                                </div> {% endcomment %}
+                            </div>
+                          </form>
                     </div>
                   </div>
                 {% endif %}
+                {% empty %}
+                      <p class="sorry_msg text-center mt-5">Sorry, no Videos Yet</p>
                 {% endfor %}
               </div>
             </div>
@@ -170,3 +297,66 @@
         </div>
       </div>
     </div>
+<!--Model -->
+{% for qs in qs %}
+  {% if qs.todays_events %}
+    <div class="modal fade" id="today_events_modal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="video_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-transparent">
+          <div class="modal-header text-white py-1 px-2">
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-transparent p-0" style="height: 70vh;">
+            <div class="w-100 h-100">
+              <iframe id="player_today" src="{{qs.todays_events}}" frameborder="0" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  {% for qs in qs %}
+  {% if qs.upcoming_events %}
+    <div class="modal fade" id="upcoming_events_modal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="video_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-transparent">
+          <div class="modal-header text-white py-1 px-2">
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-transparent p-0" style="height: 70vh;">
+            <div class="w-100 h-100">
+              <iframe id='player_upcoming' src="{{qs.upcoming_events}}" frameborder="0" width="100%" height="100%" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  {% for qs in qs %}
+  {% if qs.ondemand_events %}
+    <div class="modal fade" id="ondemand_events_modal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="video_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-transparent">
+          <div class="modal-header text-white py-1 px-2">
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-transparent p-0" style="height: 70vh;">
+            <div class="w-100 h-100">
+              <iframe id='player_ondemand' src="{{qs.ondemand_events}}" frameborder="0" width="100%" height="100%" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+{% endfor %}

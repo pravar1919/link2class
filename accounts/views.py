@@ -21,6 +21,7 @@ def login(request):
         'form_r':form_r,
     }
     if form.is_valid():
+        # form = form.save(commit=False)
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
         user = authenticate(request, email=email, password=password)
@@ -34,26 +35,28 @@ def login(request):
 
 
 def register(request):
-    form =  RegisterForm(request.POST or None)
+    form_r =  RegisterForm(request.POST or None)
     context = {
-        'form':form
+        'form':form_r
     }
-    if form.is_valid():
-        first_name = form.cleaned_data.get('first_name')
-        last_name = form.cleaned_data.get('last_name')
-        email = form.cleaned_data.get('email')
-        organization = form.cleaned_data.get('organization')
-        title = form.cleaned_data.get('title')
-        phone = form.cleaned_data.get('phone')
-        share_my_contact = form.cleaned_data.get('share_my_contact')
-        update_through_email = form.cleaned_data.get('update_through_email')
-        password = form.cleaned_data.get('password')
-
+    if form_r.is_valid():
+        # form_r = form_r.save(commit=False)
+        first_name = form_r.cleaned_data.get('first_name')
+        last_name = form_r.cleaned_data.get('last_name')
+        email = form_r.cleaned_data.get('email')
+        organization = form_r.cleaned_data.get('organization')
+        title = form_r.cleaned_data.get('title')
+        phone = form_r.cleaned_data.get('phone')
+        share_my_contact = form_r.cleaned_data.get('share_my_contact')
+        update_through_email = form_r.cleaned_data.get('update_through_email')
+        password = form_r.cleaned_data.get('password')
+        password2 = form_r.cleaned_data.get('password2')
         new_user = CustomUser.objects.create_user(first_name=first_name,last_name=last_name,phone=phone,email=email,organization=organization,title=title,share_my_contact=share_my_contact,update_through_email=update_through_email,password=password)
         new_user.save()
         auth_login(request,new_user)
-        return redirect('home')
-    return render(request, 'accounts/login.html',context)
+        return redirect('/')
+        
+    return render(request, 'accounts/register.html',context)
 
 
 @login_required

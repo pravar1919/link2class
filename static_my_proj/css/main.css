@@ -2,6 +2,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background-image: linear-gradient(to right,#2B2E3D, #0B184B);
 }
 .btn:focus,
 a:focus,
@@ -162,7 +163,7 @@ input:focus {
   color: lightblue !important;
 }
 .video_row{
-  height: 10vh;
+  min-height: 10vh;
   border-bottom: 1px solid grey;
 }
 .play_video{
@@ -269,4 +270,14 @@ input:focus {
 }
 .not-visible{
   display: none;
+}
+.sorry_msg{
+  font-weight: 400;
+  font-size: 25px;
+}
+.vh-100{
+  height: 95vh!important;
+}
+#div_id_share_my_contact, #div_id_update_through_email{ 
+  color:white;
 }

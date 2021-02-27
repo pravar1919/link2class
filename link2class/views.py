@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from accounts.forms import  LoginForm, RegisterForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth.forms import PasswordChangeForm
 
@@ -35,3 +36,17 @@ def home(request):
 
     return render(request,'home.html',context)
     
+
+def message_send(request):
+    user = request.user
+    if request.method=='POST':
+        reciever = request.POST['reciever']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        message += f'''
+                \n\nFrom: {user} \n\n To: {reciever}.
+        '''
+        res = send_mail(subject, message, "reboot@nvtsi.org", ['reboot@nvtsi.org'],fail_silently=False)
+        # msg = SentMessage(reciever=reciever,sender=user,mesage=message,subject=subject)
+        # msg.save()
+        return redirect('/')

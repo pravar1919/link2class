@@ -4,9 +4,11 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{% static '/js/main.js' %}"></script>
+
 
 <!-- Modals Starts -->
-
     <script type="text/javascript">
         $(document).ready(function () {
                 $('#change_password').on('click', function () {
@@ -59,24 +61,17 @@
     </script>
 <!-- Modals Ends -->
 
+<script>
+$("#today_events_modal").on('hidden.bs.modal', function (e) {
+    $("#today_events_modal iframe").attr("src", $("#today_events_modal iframe").attr("src"));
+});
 
-<!-- Login form Ajax Starts -->
-    <script type="text/javascript">
-        $("#login-form").submit(function (e) {
-            e.preventDefault();
-            var serializedData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'accounts:login' %}",
-                data: serializedData,
-                success: function (response) {
-                    window.location.href= "/";
-                },
-                error: function (response) {
-                    // alert the error if any error occured
-                    alert("Email or password is wrong");
-                }
-            })
-        });
-    </script>
-<!-- Login form Ajax Ends -->
+$("#upcoming_events_modal").on('hidden.bs.modal', function (e) {
+    $("#upcoming_events_modal iframe").attr("src", $("#upcoming_events_modal iframe").attr("src"));
+});
+
+$("#ondemand_events_modal").on('hidden.bs.modal', function (e) {
+    $("#ondemand_events_modal iframe").attr("src", $("#ondemand_events_modal iframe").attr("src"));
+});
+
+</script>

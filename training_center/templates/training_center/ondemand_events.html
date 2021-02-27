@@ -5,11 +5,12 @@
 
 <div class="vw-100 vh-100" style="background-image: url('{% static '/img/PSD_Prj_(video).png' %}'); background-size: 100% 100%; background-repeat: no-repeat;">
     <div class="wrapper" id="video_box">
-    <iframe src="{{qs.ondemand_events}}" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe id='player_ondemand' src="{{qs.ondemand_events}}" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </div>
 
 {% comment %} {% if qs.ondemand_events %}
   <iframe width="560" height="315" class="embed-responsive-item" src="{{qs.ondemand_events}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {% endif %} {% endcomment %}
+
 {% endblock content%}

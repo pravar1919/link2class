@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <div class="modal fade" id="whoshere_modal" tabindex="-1" role="dialog" aria-labelledby="whoshere_modal" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
@@ -56,36 +57,94 @@
                 </p>
               </div>
             </div>
-            {% for user in request.online_now %}
-            <div class="row mx-0 py-1" style="background-color: lightgray;">
-              {% comment %} <table>
-                <tr><th>Last Seen</th><td>{% if request.user.profile.last_seen %}{{ request.user.profile.last_seen|timesince }}{% else %}awhile{% endif %} ago</td></tr>
-                <tr><th class="text-success">Online</th><td>{{ request.user.profile.online }}</td></tr>
-              </table> {% endcomment %}
-              
-              <div class="col-3">
-                <p class="mb-0">{{user.first_name|title}} {{user.last_name|title}}</p>
+            {% for i in user.get_all_logged_in_users %}
+              <div class="row mx-0 py-1" style="background-color: lightgray;">              
+                <div class="col-3">
+                  <p class="mb-0">{{i.first_name|title}} {{i.profile.last_name|title}}</p>
+                </div>
+                <div class="col-4">
+                  <p class="mb-0">{{i.title|title}}</p>
+                </div>
+                <div class="col-4">
+                  <p class="mb-0">{{i.profile.state|title}}</p>
+                </div>
+                <div class="col-1 text-right">
+                  <button class="btn py-0" data-toggle="modal" data-target="#other_profile_modal{{forloop.counter}}">
+                    <span class="fa fa-user-circle-o" data-toggle="tooltip" data-placement="bottom" title="View User Profile"></span>
+                  </button>
+                </div>  
               </div>
-              <div class="col-4">
-                <p class="mb-0">{{user.title|title}}</p>
-              </div>
-              <div class="col-4">
-                <p class="mb-0">{{user.profile.state|title}}</p>
-              </div>
-              <div class="col-1 text-right">
-                <button class="btn py-0" data-toggle="tooltip" data-placement="bottom" title="View User Profile">
-                  <span class="fa fa-user-circle-o"></span>
-                </button>
-              </div>
-              
-                
-            </div>
-              {% endfor %}
-              {{logged_users}}
-              {{ request.online_now }}<br/>
-              {{ request.online_now_ids }}<br/>
-              {{ request.online_now.count }}<br/>
+            {% endfor %}            
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Other Profile Modal -->
+    {% for i in user.get_all_logged_in_users %}
+    <div class="modal fade" id="other_profile_modal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="other_profile_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-white py-1 px-2">
+            <h5 class="modal-title" id="other_profile_modal_title"><span class="fa fa-user-circle-o text-secondary"></span> USER PROFILE</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-white px-3 py-3" style="min-height: 35vh;">
+            <div class="row mx-0 mb-3">
+              <div class="col-9">
+                <h4 class="mb-2">{{i.first_name|title}} {{i.profile.last_name|title}}</h4>
+                <p class="mb-0">Title: {{i.title|title}}</p>
+                <p>Organization/Affiliation: {{i.organization|title}}</p>
+              </div>
+              <div class="col-3">
+                <img src="{{i.profile.image.url}}" alt="" class="w-100 img-fluid">
+              </div>
+            </div>
+            <div class="row mx-0">
+              <div class="col-12 text-center">
+                <button role="button" data-toggle="modal" data-target="#send_msg_modal{{forloop.counter}}" class="btn mr-3" id="send_msg"><span class="fa fa-envelope"></span> SEND MESSAGE</button>
+                <button role="button" class="btn mr-3" id="share_profile"><span class="fa fa-share-alt"></span> SHARE PROFILE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  <!-- Send Message Modal -->
+  {% for i in user.get_all_logged_in_users %}
+    <div class="modal fade" id="send_msg_modal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="send_msg_modal" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-white py-1 px-2">
+            <h5 class="modal-title" id="send_msg_modal_title"><span class="fa fa-user-circle-o text-secondary"></span> SEND MESSAGE</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-white px-3 py-3" style="min-height: 35vh;">
+            <form method='POST' action="{% url 'msg_sent' %}">{% csrf_token %}
+              <p>You are sending Message to <strong>{{i}}</strong></p>
+              <div class="form-group">
+                <input type="text" class="form-control" name='reciever' value="{{i}}" hidden>
+              </div>  
+              <div class="form-group">
+                <label>Subject</label>
+                <input type="text" class="form-control" name='subject'>
+              </div>
+              <div class="form-group">
+                <label>Mesage</label>
+                <textarea rows="8" class="form-control w-100" name='message'></textarea>
+              </div>
+              <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary text-white ml-auto">SUBMIT</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
