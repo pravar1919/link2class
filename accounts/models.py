@@ -65,6 +65,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     update_through_email = models.BooleanField(default=False,null=True,blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    current_status = models.CharField(max_length=50,null=True)
+    date_of_seperation = models.DateTimeField(null=True)
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(null=True)
 
